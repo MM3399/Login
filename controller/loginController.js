@@ -101,8 +101,7 @@ exports.resetPassword = (req, res) => {
 exports.verifyToken = (req,res,next)=>{
     const bearerHeader = req.headers['authorization'];
     if(typeof bearerHeader !== 'undefined'){
-        const bearer = bearerHeader.split(' ')[1];
-        const bearerToken = bearer[1];
+        const bearerToken = bearerHeader.split(' ')[1];
         req.token = bearerToken;
         next()
     }
@@ -113,8 +112,9 @@ exports.verifyToken = (req,res,next)=>{
 }
 
 exports.user = (req,res)=>{
-    jwt.verify(req.toekn, 'meet' , (err,authData)=>{
+    jwt.verify(req.token, 'meet' , (err,authData)=>{
         if(err){
+            console.log(err)
             res.send("You do not have authorization");
         }
         else{
